@@ -107,108 +107,101 @@ if arquivo and mes_ref:
             saldo_final_str = formatar_timedelta(saldo_total_segundos)
             classe_final = "positivo" if saldo_total_segundos >= 0 else "negativo"
 
-            html_content = f"""
-
-            # --- SUBSTITUA A PARTE DO HTML_CONTENT NO SEU APP.PY POR ESTA ---
-
-# Lógica de cores e status para a tabela
-classe_final = "positivo" if saldo_total_segundos >= 0 else "negativo"
-saldo_final_str = formatar_timedelta(saldo_total_segundos)
-
-html_content = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <style>
-                /* Configuração da Página para caber em uma só folha */
-                @page {{ 
-                    size: A4; 
-                    margin: 8mm; 
-                }}
-                body {{ 
-                    font-family: 'Segoe UI', Helvetica, Arial, sans-serif; 
-                    color: #2c3e50; 
-                    font-size: 8.5pt; /* Fonte reduzida para otimizar espaço */
-                    line-height: 1.2;
-                    margin: 0;
-                }}
-                .header {{ 
-                    text-align: center; 
-                    border-bottom: 2px solid #34495e; 
-                    padding-bottom: 8px; 
-                    margin-bottom: 10px; 
-                }}
-                h1 {{ margin: 0; font-size: 16pt; color: #2c3e50; text-transform: uppercase; }}
-                p.subheader {{ margin: 2px 0; color: #7f8c8d; font-size: 10pt; }}
-                
-                table {{ 
-                    width: 100%; 
-                    border-collapse: collapse; 
-                    margin-bottom: 10px;
-                }}
-                th {{ 
-                    background-color: #34495e; 
-                    color: white; 
-                    text-transform: uppercase; 
-                    font-size: 8pt;
-                    padding: 6px 4px;
-                }}
-                td {{ 
-                    border-bottom: 1px solid #ecf0f1; 
-                    padding: 4px; 
-                    text-align: center; 
-                }}
-                tr:nth-child(even) {{ background-color: #fdfdfd; }}
-                
-                /* Cores de Status */
-                .descanso {{ color: #bdc3c7; background-color: #fcfcfc; font-style: italic; }}
-                .ausente {{ color: #e74c3c; font-weight: bold; }}
-                .alerta {{ color: #f39c12; }}
-                .positivo {{ color: #27ae60; font-weight: bold; }}
-                .negativo {{ color: #c0392b; font-weight: bold; }}
-                
-                .footer {{ 
-                    padding: 8px; 
-                    background-color: #34495e; 
-                    color: white;
-                    text-align: right; 
-                    border-radius: 4px;
-                }}
-                .saldo-label {{ font-size: 10pt; }}
-                .saldo-valor {{ font-size: 14pt; margin-left: 10px; }}
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <h1>Relatório de Frequência Individual</h1>
-                <p class="subheader">Funcionária: <strong>DAVINA</strong> | Período: {mes_ref}</p>
-            </div>
-        
-            <table>
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Dia</th>
-                        <th>Entrada</th>
-                        <th>Saída</th>
-                        <th>Status</th>
-                        <th>Carga</th>
-                        <th>Saldo Diário</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {linhas_tabela_html}
-                </tbody>
-            </table>
-        
-            <div class="footer">
-                <span class="saldo-label">SALDO ACUMULADO NO MÊS:</span>
-                <span class="saldo-valor">{saldo_final_str}</span>
-            </div>
-        </body>
-        </html>
-        """
+   
+                    html_content = f"""
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="UTF-8">
+                        <style>
+                            /* Usamos {{ }} duplos para o CSS não causar erro no Python */
+                            @page {{ 
+                                size: A4; 
+                                margin: 8mm; 
+                            }}
+                            body {{ 
+                                font-family: 'Segoe UI', Helvetica, Arial, sans-serif; 
+                                color: #2c3e50; 
+                                font-size: 8.5pt; 
+                                line-height: 1.2;
+                                margin: 0;
+                            }}
+                            .header {{ 
+                                text-align: center; 
+                                border-bottom: 2px solid #34495e; 
+                                padding-bottom: 8px; 
+                                margin-bottom: 10px; 
+                            }}
+                            h1 {{ margin: 0; font-size: 16pt; color: #2c3e50; text-transform: uppercase; }}
+                            p.subheader {{ margin: 2px 0; color: #7f8c8d; font-size: 10pt; }}
+                            
+                            table {{ 
+                                width: 100%; 
+                                border-collapse: collapse; 
+                                margin-bottom: 10px;
+                            }}
+                            th {{ 
+                                background-color: #34495e; 
+                                color: white; 
+                                text-transform: uppercase; 
+                                font-size: 8pt;
+                                padding: 6px 4px;
+                            }}
+                            td {{ 
+                                border-bottom: 1px solid #ecf0f1; 
+                                padding: 4px; 
+                                text-align: center; 
+                            }}
+                            tr:nth-child(even) {{ background-color: #fdfdfd; }}
+                            
+                            .descanso {{ color: #bdc3c7; background-color: #fcfcfc; font-style: italic; }}
+                            .ausente {{ color: #e74c3c; font-weight: bold; }}
+                            .alerta {{ color: #f39c12; }}
+                            .positivo {{ color: #27ae60; font-weight: bold; }}
+                            .negativo {{ color: #c0392b; font-weight: bold; }}
+                            
+                            .footer {{ 
+                                padding: 8px; 
+                                background-color: #34495e; 
+                                color: white;
+                                text-align: right; 
+                                border-radius: 4px;
+                            }}
+                            .saldo-label {{ font-size: 10pt; }}
+                            .saldo-valor {{ font-size: 14pt; margin-left: 10px; }}
+                        </style>
+                    </head>
+                    <body>
+                        <div class="header">
+                            <h1>Relatório de Frequência Individual</h1>
+                            <!-- Aqui usamos chave simples pois mes_ref é uma variável do Python -->
+                            <p class="subheader">Funcionária: <strong>DAVINA</strong> | Período: {mes_ref}</p>
+                        </div>
+                    
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Dia</th>
+                                    <th>Entrada</th>
+                                    <th>Saída</th>
+                                    <th>Status</th>
+                                    <th>Carga</th>
+                                    <th>Saldo Diário</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {linhas_tabela_html}
+                            </tbody>
+                        </table>
+                    
+                        <div class="footer">
+                            <span class="saldo-label">SALDO ACUMULADO NO MÊS:</span>
+                            <span class="saldo-valor">{saldo_final_str}</span>
+                        </div>
+                    </body>
+                    </html>
+                    """
        
    
 
