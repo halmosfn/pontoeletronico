@@ -108,39 +108,109 @@ if arquivo and mes_ref:
             classe_final = "positivo" if saldo_total_segundos >= 0 else "negativo"
 
             html_content = f"""
-            <html>
-            <head>
-                <style>
-                    body {{ font-family: Arial; font-size: 10pt; color: #333; }}
-                    .header {{ text-align: center; border-bottom: 2px solid #2c3e50; margin-bottom: 20px; }}
-                    table {{ width: 100%; border-collapse: collapse; }}
-                    th {{ background: #2c3e50; color: white; padding: 8px; }}
-                    td {{ border: 1px solid #ddd; padding: 6px; text-align: center; }}
-                    .descanso {{ background: #f9f9f9; color: #999; }}
-                    .ausente {{ color: #e74c3c; }}
-                    .positivo {{ color: #27ae60; font-weight: bold; }}
-                    .negativo {{ color: #c0392b; font-weight: bold; }}
-                    .footer {{ margin-top: 20px; padding: 10px; background: #ecf0f1; text-align: right; font-size: 12pt; }}
-                </style>
-            </head>
-            <body>
-                <div class="header">
-                    <h1>Relatório de Frequência - Davina</h1>
-                    <p>Mês de Referência: {mes_ref}</p>
-                </div>
-                <table>
-                    <thead>
-                        <tr><th>Data</th><th>Dia</th><th>Entrada</th><th>Saída</th><th>Status</th><th>Permanência</th><th>Saldo</th></tr>
-                    </thead>
-                    <tbody>{linhas_tabela_html}</tbody>
-                </table>
-                <div class="footer">
-                    <strong>SALDO TOTAL: </strong>
-                    <span class="{classe_final}">{saldo_final_str}</span>
-                </div>
-            </body>
-            </html>
-            """
+
+            # --- SUBSTITUA A PARTE DO HTML_CONTENT NO SEU APP.PY POR ESTA ---
+
+# Lógica de cores e status para a tabela
+classe_final = "positivo" if saldo_total_segundos >= 0 else "negativo"
+saldo_final_str = formatar_timedelta(saldo_total_segundos)
+
+html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                /* Configuração da Página para caber em uma só folha */
+                @page {{ 
+                    size: A4; 
+                    margin: 8mm; 
+                }}
+                body {{ 
+                    font-family: 'Segoe UI', Helvetica, Arial, sans-serif; 
+                    color: #2c3e50; 
+                    font-size: 8.5pt; /* Fonte reduzida para otimizar espaço */
+                    line-height: 1.2;
+                    margin: 0;
+                }}
+                .header {{ 
+                    text-align: center; 
+                    border-bottom: 2px solid #34495e; 
+                    padding-bottom: 8px; 
+                    margin-bottom: 10px; 
+                }}
+                h1 {{ margin: 0; font-size: 16pt; color: #2c3e50; text-transform: uppercase; }}
+                p.subheader {{ margin: 2px 0; color: #7f8c8d; font-size: 10pt; }}
+                
+                table {{ 
+                    width: 100%; 
+                    border-collapse: collapse; 
+                    margin-bottom: 10px;
+                }}
+                th {{ 
+                    background-color: #34495e; 
+                    color: white; 
+                    text-transform: uppercase; 
+                    font-size: 8pt;
+                    padding: 6px 4px;
+                }}
+                td {{ 
+                    border-bottom: 1px solid #ecf0f1; 
+                    padding: 4px; 
+                    text-align: center; 
+                }}
+                tr:nth-child(even) {{ background-color: #fdfdfd; }}
+                
+                /* Cores de Status */
+                .descanso {{ color: #bdc3c7; background-color: #fcfcfc; font-style: italic; }}
+                .ausente {{ color: #e74c3c; font-weight: bold; }}
+                .alerta {{ color: #f39c12; }}
+                .positivo {{ color: #27ae60; font-weight: bold; }}
+                .negativo {{ color: #c0392b; font-weight: bold; }}
+                
+                .footer {{ 
+                    padding: 8px; 
+                    background-color: #34495e; 
+                    color: white;
+                    text-align: right; 
+                    border-radius: 4px;
+                }}
+                .saldo-label {{ font-size: 10pt; }}
+                .saldo-valor {{ font-size: 14pt; margin-left: 10px; }}
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>Relatório de Frequência Individual</h1>
+                <p class="subheader">Funcionária: <strong>DAVINA</strong> | Período: {mes_ref}</p>
+            </div>
+        
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Dia</th>
+                        <th>Entrada</th>
+                        <th>Saída</th>
+                        <th>Status</th>
+                        <th>Carga</th>
+                        <th>Saldo Diário</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {linhas_tabela_html}
+                </tbody>
+            </table>
+        
+            <div class="footer">
+                <span class="saldo-label">SALDO ACUMULADO NO MÊS:</span>
+                <span class="saldo-valor">{saldo_final_str}</span>
+            </div>
+        </body>
+        </html>
+        """
+       
+   
 
             # 4. Botão de Download
             if st.button("✨ Gerar e Visualizar Relatório"):
