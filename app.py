@@ -105,10 +105,11 @@ if arquivo and mes_ref:
 
             # 3. Montagem do HTML Final para o PDF
             saldo_final_str = formatar_timedelta(saldo_total_segundos)
-            classe_final = "positivo" if saldo_total_segundos >= 0 else "negativo"
-
+            classe_final = "positivo" 
+            
+            if saldo_total_segundos >= 0 else "negativo"
    
-                    html_content = f"""
+            html_content = f"""
                     <!DOCTYPE html>
                     <html>
                     <head>
