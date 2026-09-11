@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ponto</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; display: flex; flex-direction: column; font-family: sans-serif; }
+        .btn { flex: 1; border: none; font-size: 40px; font-weight: bold; color: white; display: flex; align-items: center; justify-content: center; text-transform: uppercase; }
+        .btn:active { opacity: 0.7; }
+        #btn-entrada { background-color: #4CAF50; } /* Verde - Ocupa metade da tela */
+        #btn-saida { background-color: #F44336; } /* Vermelho - Ocupa metade da tela */
+    </style>
+</head>
+<body>
+
+    <button id="btn-entrada" class="btn" onclick="registrar('ENTRADA')">ENTRAR</button>
+    <button id="btn-saida" class="btn" onclick="registrar('SAÍDA')">SAIR</button>
+
+    <script>
+        // COLE A SUA URL AQUI
+        const API_URL = "https://script.google.com/macros/s/AKfycbzkbvbc2Fh04SVRFaPkb-ByoG2euzQ3L7PnHbYf-ntqCucbfFzY1sdvFmB3YBINnVf3/exec";
+
+        function registrar(acao) {
+            fetch(API_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Garante que o celular não bloqueie o envio
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ acao: acao })
+            });
+            
+            // Aviso visual simples para ela saber que funcionou
+            alert("Sua " + acao + " foi registrada com sucesso!");
+        }
+    </script>
+</body>
+</html>
